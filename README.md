@@ -1,10 +1,10 @@
-# NatureBlog 1.0 - Django Blog Application
+# NatureBlog 2.0 - Django Blog Application
 
 This is a Blog Web Application, written in <strong>Django 3</strong>. 
 
 <strong>This application allows the creation and publication of posts</strong>. The posts are listed in the main layout, and it's possible to see the Title, the Published Date, and a small part of their Text Content. By clicking on the Post's Link you are interested in, you can see all of its content.
 
-![Image-Intro-Webapp](images/image_intro.png)
+![Image-Intro-Webapp](images/blog2_main.jpg)
 
  ## Table Of Contents
 
@@ -15,26 +15,63 @@ This is a Blog Web Application, written in <strong>Django 3</strong>.
  
  ## General Info
  
+ This Blog Application 2.0 has new extra features that the previous version 1.0 (You can check the code of the old one 
+ in this repository: [NatureBlog1.0](https://github.com/GloriaX21/Django_Blog-1.0))
+
+ Extra features:
+
+ * Sharing posts via email
+ * Adding comments to a post
+ * Tagging posts
+ * Recommending similar posts 
+
+  <strong>Home</strong> view:
+  
+ ![Image-Intro-Webapp](images/blog2.png)
+
+  <strong>Post</strong> detail view at the bottom of the page:
+
+ ![Image-Intro-Webapp](images/blog2.1.png)
 
 
-![Image-Intro-Webapp](images/image_blog_layout1.png)
-
-This is the <strong>Post Model</strong> code:
+This is the <strong>Comment Model</strong> code:
 ```python
-class Post(models.Model):
-    STATUS_CHOICES = (
-        ('draft', 'Draft'),
-        ('published', 'Published')
-    )
-    title = models.CharField(max_length=250)
-    slug = models.SlugField(max_length=250, unique_for_date='publish')
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
+class Comment(models.Model):
+    post = models.ForeignKey(Post,
+                            on_delete=models.CASCADE,
+                            related_name = 'comments')
+    name = models.CharField(max_length=80)
+    email = models.EmailField()
     body = models.TextField()
-    publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
-    update = models.DateTimeField(auto_now=True)
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
+    updated = models.DateTimeField(auto_now=True)
+    active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ('created',)
+
+    def __str__(self):
+        return f'Comment by {self.name} on {self.post}'
 ```
+
+This is the code of the two <strong>Forms</strong> in the <strong>forms.py</strong> file:
+```python
+from django import forms
+from .models import Comment
+
+class EmailPostForm(forms.Form):
+    name = forms.CharField(max_length=25)
+    email = forms.EmailField()
+    to = forms.EmailField()
+    comments = forms.CharField(required=False, widget=forms.Textarea)
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('name', 'email', 'body')
+```
+
 
  ## Technologies Used
 
@@ -52,6 +89,7 @@ class Post(models.Model):
   3. [Google Fonts](https://en.wikipedia.org/wiki/Google_Fonts)
   4. [Git](https://en.wikipedia.org/wiki/Git)
   5. [GitHub](https://en.wikipedia.org/wiki/GitHub)
+  6. [django-taggit](https://django-taggit.readthedocs.io/en/latest/)
 
 
  ## Setup
@@ -107,6 +145,12 @@ class Post(models.Model):
   '3.0.14'
   ``` 
   
+  ### Install "django-taggit" application with pip, to use tags
+
+  ```bash
+  pip install django_taggit==1.2.0
+  ```
+
   ### Run the Application on the Server
 
   1. Download the NatureBlog Project's Folder from this GitHub Account;
@@ -140,13 +184,13 @@ class Post(models.Model):
 
   ### Status
 
-  A new version of this application (NatureBlog 2.0) is under development. 
+  A new version of this application (NatureBlog 3.0) is under development. 
   This new version will include extra functionalities, like:
 
-  * Sharing posts via email
-  * Adding Comments to a post
-  * Tagging posts
-  * Recomending similar posts
+  * Creating custom template tags and filters
+  * Adding a sitemap and post feed
+  * Implementing full-text search with PostgreSQL
+
 
 
 

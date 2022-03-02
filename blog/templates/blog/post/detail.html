@@ -13,8 +13,16 @@
       Share this post
     </a>
   </p>
+  <h2 class="caption">Similar posts</h2>
+  {% for post in similar_posts %}
+    <p>
+      <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+    </p>
+  {% empty %}
+    There are no similar posts yet.  
+  {% endfor %}
   {% with comments.count as total_comments %}
-    <h2>
+    <h2 class="caption">
       {{ total_comments }} comment {{ totasl_comments|pluralize }}
     </h2>
   {% endwith %}
@@ -23,7 +31,9 @@
       <p class="info">
         Comment {{ forloop.counter }} by {{ comment.name }} {{ comment.created }}
       </p>
+      <div class="user-comment">
       {{ comment.body|linebreaks }}
+      </div>
     </div>
   {% empty %}
     <p>There are no comments yet.</p>
@@ -31,11 +41,11 @@
   {% if new_comment %}
     <h2>You comment has been added.</h2>
   {% else %}
-    <h2>Add a new comment</h2>
-    <form method="post">
+    <h2 class="caption">Add a new comment</h2>
+    <form class="form" method="post">
       {{ comment_form.as_p }}
       {% csrf_token %}
-      <p><input type="submit" value="Add comment"></p>
+      <p><input class="form-button" type="submit" value="Add comment"></p>
     </form>  
   {% endif %}
 {% endblock %}
