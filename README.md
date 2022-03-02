@@ -25,9 +25,9 @@ This is a Blog Web Application, written in <strong>Django 3</strong>.
  * Tagging posts
  * Recommending similar posts 
 
-![Image-Intro-Webapp](images/image_blog2.png)
+![Image-Intro-Webapp](images/blog2.png)
 
-![Image-Intro-Webapp](images/image_blog2.1.png)
+![Image-Intro-Webapp](images/blog2.1.png)
 
 
 This is the <strong>Comment Model</strong> code:
@@ -85,6 +85,7 @@ class CommentForm(forms.ModelForm):
   3. [Google Fonts](https://en.wikipedia.org/wiki/Google_Fonts)
   4. [Git](https://en.wikipedia.org/wiki/Git)
   5. [GitHub](https://en.wikipedia.org/wiki/GitHub)
+  6. [django-taggit](https://django-taggit.readthedocs.io/en/latest/)
 
 
  ## Setup
