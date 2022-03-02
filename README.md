@@ -25,9 +25,13 @@ This is a Blog Web Application, written in <strong>Django 3</strong>.
  * Tagging posts
  * Recommending similar posts 
 
-![Image-Intro-Webapp](images/blog2.png)
+  <strong>Home</strong> view:
+  
+ ![Image-Intro-Webapp](images/blog2.png)
 
-![Image-Intro-Webapp](images/blog2.1.png)
+  <strong>Post</strong> detail view at the bottom of the page:
+
+ ![Image-Intro-Webapp](images/blog2.1.png)
 
 
 This is the <strong>Comment Model</strong> code:
